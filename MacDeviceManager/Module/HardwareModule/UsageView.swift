@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum UsageType {
+enum UsageType: String {
     case cpu
     case memory
 }
@@ -12,6 +12,7 @@ struct UsageView: View {
     private let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     private let cpuUsage = CPUUsage()
     private let memoryUsage = MemoryUsage()
+    private let keyValueStore = NSUbiquitousKeyValueStore.default
 
     var body: some View {
         VStack {
@@ -28,7 +29,7 @@ struct UsageView: View {
             case .cpu:
                 usageValue = Double(cpuUsage.getCPUUsage())
             case .memory:
-                usageValue = Double(memoryUsage.getMemoryUsagePercent())
+                usageValue = Double(memoryUsage.getMemoryPressurePercent())
             }
         }
     }

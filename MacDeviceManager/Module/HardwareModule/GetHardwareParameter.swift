@@ -40,6 +40,7 @@ class CPUUsage {
     }
 }
 
+import MachO
 class MemoryUsage {
     private let pageSize = vm_kernel_page_size // ページサイズ取得
 
@@ -76,6 +77,36 @@ class MemoryUsage {
         let usagePercent = (used / physicalMemory) * 100.0
 
         return Float(usagePercent)
+    }
+
+    // メモリプレッシャー(％)を返す関数
+    func getMemoryPressurePercent() -> Float {
+        var size = mach_msg_type_number_t(MemoryLayout<vm_statistics64_data_t>.size / MemoryLayout<integer_t>.size)
+        var vmStat = vm_statistics64()
+        let result = withUnsafeMutablePointer(to: &vmStat) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: Int(size)) {
+                host_statistics64(mach_host_self(), HOST_VM_INFO64, $0, &size)
+            }
+        }
+
+        if result != KERN_SUCCESS {
+            return 0
+        }
+
+        let wired = Double(vmStat.wire_count) * Double(pageSize)
+        let compressed = Double(vmStat.compressor_page_count) * Double(pageSize)
+
+        // 物理メモリサイズ取得
+        let physicalMemory = Double(ProcessInfo.processInfo.physicalMemory)
+
+        if physicalMemory == 0 {
+            return 0
+        }
+
+        // メモリプレッシャー計算（%）
+        let pressurePercent = ((wired + compressed) / physicalMemory) * 100.0
+
+        return Float(pressurePercent)
     }
 }
 
