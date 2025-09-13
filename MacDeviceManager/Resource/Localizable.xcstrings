@@ -1,0 +1,55 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld%%" : {
+
+    },
+    "Add Item" : {
+
+    },
+    "CPU" : {
+
+    },
+    "Item at %@" : {
+
+    },
+    "Select an item" : {
+
+    },
+    "UsageCpuTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total CPU Usage"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "CPU使用率"
+          }
+        }
+      }
+    },
+    "UsageRamTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total RAM Usage"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "RAM使用率"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

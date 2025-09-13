@@ -27,6 +27,9 @@ struct MacDeviceManagerApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        MenuBarExtra("CPU", systemImage: "cpu") {
+            MenuBarContentView()
+        }
+        .menuBarExtraStyle(.window) 
     }
 }
